@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import cookieParser from 'cookie-parser';
 import logger from 'morgan';
+
 import userRouter from './routes/users.js';
 
 import { fileURLToPath } from 'url';
@@ -20,12 +21,18 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', userRouter);
 
+
 app.get('/custom', (req, res) => {
     res.send('This is a custom route returning plain text!');
 });
 
 app.get('/another-route', (req, res) => {
     res.json({ message: 'This is another custom route returning JSON!' });
+});
+
+const PORT = process.env.PORT || 3001;  
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
 
 export default app;
